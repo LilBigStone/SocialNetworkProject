@@ -1,0 +1,30 @@
+﻿@page "/register"
+@using SocialNetworkProject.Models
+@using Microsoft.AspNetCore.Components
+@inject NavigationManager NavigationManager
+
+<h3>Register</h3>
+
+<EditForm Model="@newUser" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>User name:</label>
+        <InputText @bind-Value="newUser.Username" />
+    </div>
+    <div>
+        <label>Password:</label>
+        <InputText @bind-Value="password" type="password" />
+    </div>
+    <button type="submit">Register</button>
+</EditForm>
+
+@code {
+    private User newUser = new User();
+    private string password;
+
+    private async Task HandleValidSubmit()
+    {
+    }
+}

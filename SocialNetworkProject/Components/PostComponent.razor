@@ -1,0 +1,59 @@
+﻿@using SocialNetworkProject.Models
+
+<div class="post">
+    <p><strong>@Post.User.Username</strong> wrote:</p>
+    <p>@Post.Content</p>
+    <p><em>@Post.CreatedAt.ToString("g")</em></p>
+
+    <button @onclick="LikePost">Like (@likeCount)</button>
+    <button @onclick="ToggleComments">Comments (@commentCount)</button>
+
+    @if (showComments)
+    {
+        <div class="comments">
+            @foreach (var comment in Post.Comments)
+            {
+                <CommentComponent Comment="comment" />
+            }
+
+            <EditForm Model="@newComment" OnValidSubmit="@HandleCommentSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div>
+                    <InputTextArea @bind-Value="newComment.Content" Placeholder="Type Comment..." />
+                </div>
+                <button type="submit">Send</button>
+            </EditForm>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public Post Post { get; set; }
+
+    private int likeCount;
+    private int commentCount;
+    private bool showComments = false;
+    private Comment newComment = new Comment();
+
+    protected override void OnInitialized()
+    {
+        likeCount = Post.Likes?.Count ?? 0;
+        commentCount = Post.Comments?.Count ?? 0;
+    }
+
+    private async Task LikePost()
+    {
+    }
+
+    private void ToggleComments()
+    {
+        showComments = !showComments;
+    }
+
+    private async Task HandleCommentSubmit()
+    {
+    }
+}

@@ -1,0 +1,52 @@
+﻿@page "/"
+@using SocialNetworkProject.Models
+@inject NavigationManager NavigationManager
+
+<h3>Messages List</h3>
+
+@if (!isAuthenticated)
+{
+    <p>Please, <a href="/login">Login</a> или <a href="/register">Register</a>.</p>
+}
+else
+{
+    <EditForm Model="@newPost" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div>
+            <InputTextArea @bind-Value="newPost.Content" Placeholder="What's new?" />
+        </div>
+        <button type="submit">Publish</button>
+    </EditForm>
+
+    <hr />
+
+    @if (posts != null)
+    {
+        @foreach (var post in posts)
+        {
+            <PostComponent Post="post" />
+        }
+    }
+    else
+    {
+        <p>Loading...</p>
+    }
+}
+
+@code {
+    private bool isAuthenticated = false;
+    private Post newPost = new Post();
+    private List<Post> posts;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+
+    private async Task HandleValidSubmit()
+    {
+
+    }
+}

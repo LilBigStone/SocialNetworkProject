@@ -1,0 +1,12 @@
+﻿@using SocialNetworkProject.Models
+
+<div class="comment">
+    <p><strong>@Comment.User.Username</strong>:</p>
+    <p>@Comment.Content</p>
+    <p><em>@Comment.CreatedAt.ToString("g")</em></p>
+</div>
+
+@code {
+    [Parameter]
+    public Comment Comment { get; set; }
+}
